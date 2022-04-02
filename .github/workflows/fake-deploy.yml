@@ -33,5 +33,5 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo $GITHUB_WORKSPACE,
-          echo ${{ github.path }}.
-          echo ${{ github.event_path	}}.
+          echo "${{ github.path }}".
+          echo "${{ github.event_path	}}
