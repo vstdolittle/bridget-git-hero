@@ -2,13 +2,8 @@ name: Build Harvest
 
 on:
   push:
-    branches-ignore:
-    - 'development'
-    - 'main'
-    - 'harvest'
     paths:
-    - 'Source/Harvest/**'
-    - 'Source/Shared/**'
+    - '*'
 
 env:
   DOCKER_FILE: 'Source/Harvest/Dockerfile'
