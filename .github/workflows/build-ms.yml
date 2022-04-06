@@ -1,0 +1,55 @@
+name: BuildMicroserviceTest
+
+on:
+  push:
+    branches:
+    - '**'
+    paths:
+    - 'Source/**'
+    - '!Source/README.md'
+  workflow_call:
+    inputs:
+      dockerfile:
+        description: 'The Dockerfile to build'
+        default: 'Fake/Dockerfile'
+        required: true
+        type: string
+      docker-image-tag:
+        description: 'The Docker image tag'
+        default: 'fake/image'
+        required: true
+        type: string
+      version:
+        description: 'The version to deploy as'
+        default: 'fake-version'
+        required: true
+        type: string
+env:
+  CONTAINER_REGISTRY: 388c0cc724b246a78735b583ce21e01b.azurecr.io
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login via Az module
+      uses: azure/login@v1.1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS}}
+
+    - name: Login to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.CONTAINER_REGISTRY }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build Docker image
+      run: |
+        echo 'Build!',
+        echo ${{ github.event.inputs.dockerfile }}
+        echo ${{ github.event.inputs.version }}
+        echo ${{ github.event.inputs.docker-image-tag }}
