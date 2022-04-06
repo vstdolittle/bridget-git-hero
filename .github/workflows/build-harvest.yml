@@ -1,0 +1,29 @@
+name: Build Harvest
+
+on:
+  push:
+    branches-ignore:
+    - 'development'
+    - 'main'
+    - 'harvest'
+    paths:
+    - 'Source/Harvest/**'
+    - 'Source/Shared/**'
+
+env:
+  DOCKER_FILE: 'Source/Harvest/Dockerfile'
+  DOCKER_IMAGE_TAG: 'shepherd/harvest'
+  VERSION: 'fake-version'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Invoke build
+      uses: benc-uk/workflow-dispatch@v1
+      with:
+        workflow: BuildMicroserviceTest
+        token: ${{ secrets.PERSONAL_TOKEN }}
+        ref: ${{ github.event.sha }}
+        inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "version": "${{ env.VERSION }}" }'
