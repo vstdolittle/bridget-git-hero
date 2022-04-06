@@ -7,7 +7,7 @@ on:
     paths:
     - 'Source/**'
     - '!Source/README.md'
-  workflow_call:
+  workflow_dispatch:
     inputs:
       dockerfile:
         description: 'The Dockerfile to build'
