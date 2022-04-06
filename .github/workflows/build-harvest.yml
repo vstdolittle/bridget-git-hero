@@ -19,6 +19,6 @@ jobs:
       uses: benc-uk/workflow-dispatch@v1
       with:
         workflow: BuildMicroserviceTest
-        token: ${{ secrets.PERSONAL_TOKEN }}
+        token: ${{ secrets.ACCESS_TOKEN }}
         ref: ${{ github.event.sha }}
         inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "version": "${{ env.VERSION }}" }'
