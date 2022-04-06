@@ -3,7 +3,7 @@ name: Build Harvest
 on:
   push:
     paths:
-    - '*'
+    - '*/*'
 
 env:
   DOCKER_FILE: 'Source/Harvest/Dockerfile'
