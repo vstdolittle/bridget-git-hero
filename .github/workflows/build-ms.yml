@@ -34,22 +34,12 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Login via Az module
-      uses: azure/login@v1.1
       with:
-        creds: ${{secrets.AZURE_CREDENTIALS}}
-
-    - name: Login to ACR
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ env.CONTAINER_REGISTRY }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
+        submodules: "recursive"
 
     - name: Build Docker image
       run: |
         echo 'Build!',
-        echo ${{ github.event.inputs.dockerfile }}
-        echo ${{ github.event.inputs.version }}
+        echo ${{ github.event.inputs.dockerfile }},
+        echo ${{ github.event.inputs.version }},
         echo ${{ github.event.inputs.docker-image-tag }}
