@@ -26,6 +26,7 @@ jobs:
         inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "version": "${{ env.VERSION }}" }'
 
     - name: Invoke deploy
+      uses: benc-uk/workflow-dispatch@v1
       with:
         workflow: DeployMicroserviceTest
         token: ${{ secrets.ACCESS_TOKEN }}
