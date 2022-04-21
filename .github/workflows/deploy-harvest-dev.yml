@@ -20,4 +20,4 @@ jobs:
       uses: dolittle/increment-version-action@v2
       with:
         version: 6.0.0-development.51
-        release-type: minor
+        release-type: major
