@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - "development"
-    paths:
-      - "*"
+      - "master"
 
 env:
   DOCKER_FILE: 'Source/Harvest/Dockerfile'
@@ -17,18 +16,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Invoke build
-      uses: benc-uk/workflow-dispatch@v1
+    - name: Increment version
+      uses: dolittle/increment-version-action@v2
       with:
-        workflow: BuildMicroserviceTest
-        token: ${{ secrets.ACCESS_TOKEN }}
-        ref: ${{ github.event.sha }}
-        inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "version": "${{ env.VERSION }}" }'
-
-    - name: Invoke deploy
-      uses: benc-uk/workflow-dispatch@v1
-      with:
-        workflow: DeployMicroserviceTest
-        token: ${{ secrets.ACCESS_TOKEN }}
-        ref: ${{ github.event.sha }}
-        inputs: '{ "dockerfile":"${{ env.DOCKER_FILE }}", "docker-image-tag":"${{ env.DOCKER_IMAGE_TAG }}", "version": "${{ env.VERSION }}" }'
+        version: 6.0.0-development.51
+        release-type: minor
